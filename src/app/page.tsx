@@ -1,3 +1,7 @@
+"use client";
+
+import HomeComponent from "@/components/Home";
+
 export default function Home() {
-  return <h1>Tic Tac Toe Game Using Next Js</h1>;
+  return <HomeComponent />;
 }
