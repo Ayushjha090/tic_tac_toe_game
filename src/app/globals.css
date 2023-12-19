@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --color-primary-main: #4ade80;
+  --color-primary-light: #86efac;
+  --color-primary-dark: #16a34a;
+  --color-secondary-main: #d97706;
+  --color-secondary-light: #f59e0b;
+  --color-secondary-dark: #b45309;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,4 +25,14 @@
 body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(15, 23, 42);
+}
+
+.button-vsPlayer {
+  background-color: var(--color-secondary-main);
+  cursor: pointer;
+  box-shadow: 2px 2px 2px var(--color-secondary-dark);
+}
+
+.button-vsPlayer:hover {
+  background-color: var(--color-secondary-dark);
 }
