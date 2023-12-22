@@ -12,7 +12,6 @@ const ActionButton = ({
   buttonName: string;
 }) => {
   const [isTranslated, setIsTranslated] = useState<boolean>(false);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   useEffect(() => {
     if (isTranslated) {
@@ -30,10 +29,10 @@ const ActionButton = ({
 
   return (
     <div
-      className={`rounded-xl p-5 text-2xl font-extrabold text-center button-${buttonName} transform transition-transform ease-in-out ${
+      className={`rounded-xl p-5 text-2xl font-extrabold text-center cursor-pointer button-${buttonName} transform transition-transform ease-in-out ${
         isTranslated ? "translate-y-1" : ""
       }`}
-      onClick={handleClick}
+      onMouseDown={handleClick}
     >
       <Link href={path}>{title}</Link>
     </div>
