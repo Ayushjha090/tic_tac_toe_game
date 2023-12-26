@@ -28,14 +28,16 @@ const ActionButton = ({
   };
 
   return (
-    <div
-      className={`rounded-xl p-5 text-2xl font-extrabold text-center cursor-pointer button-${buttonName} transform transition-transform ease-in-out ${
-        isTranslated ? "translate-y-1" : ""
-      }`}
-      onMouseDown={handleClick}
-    >
-      <Link href={path}>{title}</Link>
-    </div>
+    <Link href={path}>
+      <div
+        className={`rounded-xl p-5 text-2xl font-extrabold text-center cursor-pointer button-${buttonName} transform transition-transform ease-in-out ${
+          isTranslated ? "translate-y-1" : ""
+        }`}
+        onMouseDown={handleClick}
+      >
+        {title}
+      </div>
+    </Link>
   );
 };
 
