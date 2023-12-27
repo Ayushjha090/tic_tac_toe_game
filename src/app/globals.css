@@ -35,3 +35,7 @@ body {
 .button-vsPlayer:hover {
   background-color: rgb(var(--color-secondary-dark));
 }
+
+.startGameBtn:hover {
+  background-color: rgb(var(--color-secondary-main));
+}

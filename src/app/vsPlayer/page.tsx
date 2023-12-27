@@ -31,16 +31,16 @@ const PlayerGame = () => {
         </DialogHeader>
         <DialogContent>
           <div className="flex flex-col">
-            <div className="mt-3 flex flex-col text-black">
-              <p className="text-lg font-bold">Player 1</p>
-              <input className="mt-2 p-2 rounded-md border-2" type="text" name="player-one-name" id="player-one-name" placeholder="Player 1 name" onChange={(event)=>setPlayerOneName(event.target.value)} />
+            <div className="mt-3 flex flex-col">
+              <p className="text-lg font-bold text-primary-color-main">Player 1</p>
+              <input className="mt-2 p-2 rounded-md bg-background-color focus:outline-none" type="text" name="player-one-name" id="player-one-name" placeholder="Player 1 name" onChange={(event)=>setPlayerOneName(event.target.value)} />
             </div>
-            <div className="mt-3 flex flex-col text-black">
-              <p className="text-lg font-bold">Player 2</p>
-              <input className="mt-2 p-2 rounded-md border-2" type="text" name="player-two-name" id="player-two-name" placeholder="Player 2 name" onChange={(event)=>setPlayerTwoName(event.target.value)}/>
+            <div className="mt-3 flex flex-col">
+              <p className="text-lg font-bold text-primary-color-main">Player 2</p>
+              <input className="mt-2 p-2 rounded-md bg-background-color focus:outline-none" type="text" name="player-two-name" id="player-two-name" placeholder="Player 2 name" onChange={(event)=>setPlayerTwoName(event.target.value)}/>
             </div>
-            <div className="w-full my-5 rounded-md text-center p-2 bg-black text-white hover:bg-gray-900">
-              <button className="text-2xl" onClick={handlePlayGame}>Start Game</button>
+            <div className="w-full my-5 rounded-md text-center p-2 bg-secondary-color-dark startGameBtn cursor-pointer">
+              <button className="text-2xl text-black font-extrabold" onClick={handlePlayGame}>Start Game</button>
             </div>
           </div>
         </DialogContent>

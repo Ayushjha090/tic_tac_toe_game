@@ -7,7 +7,7 @@ type Props = {children: ReactNode}
 
 export const DialogTitle = ({title, onClose}:{title: string, onClose?:()=>void}) => {
     return (
-        <div className='text-2xl font-extrabold flex flex-row justify-between text-black'>
+        <div className='text-2xl font-extrabold flex flex-row justify-between text-secondary-color-dark'>
             <div>
                 {title}
             </div>
@@ -20,7 +20,7 @@ export const DialogTitle = ({title, onClose}:{title: string, onClose?:()=>void})
 
 export const DialogDescription = ({description}:{description: string}) => {
     return (
-        <div className='text-slate-700'>
+        <div>
             {description}
         </div>
     )
