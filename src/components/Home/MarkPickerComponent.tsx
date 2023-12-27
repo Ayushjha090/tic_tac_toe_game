@@ -21,9 +21,12 @@ const MarkContainer = ({ mark, isSelected, onClick }: MarkContainerProps) => {
   );
 };
 
-const MarkPickerComponent = () => {
-  const [selectedMark, setSelectedMark] = useState<string>("x");
-
+const MarkPickerComponent = (
+  {
+    selectedMark, 
+    setSelectedMark
+  }:{selectedMark:string, setSelectedMark:(selectedMark:string)=>void}) => {
+  
   const handleSelectedMarkClick = (mark: string): void => {
     setSelectedMark(mark);
   };
