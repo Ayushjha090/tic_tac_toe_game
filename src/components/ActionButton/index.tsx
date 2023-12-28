@@ -25,6 +25,8 @@ const ActionButton = ({
 
   const handleClick = () => {
     setIsTranslated(true);
+    window.localStorage.removeItem('playerOneDetails');
+    window.localStorage.removeItem('playerTwoDetails');
   };
 
   return (
