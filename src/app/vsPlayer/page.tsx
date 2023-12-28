@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { PlayerDetails } from '@/types/PlayerType';
 import StartGameDialog from '@/components/vsPlayer/StartGameDialog';
+import GameBoard from '@/components/UI/GameBoard';
 
 const PlayerGame = () => {
   const [startGame, setStartGame] = useState<boolean>(true);
@@ -34,7 +35,6 @@ const PlayerGame = () => {
 
   return (
     <>
-      <h1>Player Game</h1>
       <StartGameDialog
         startGame={startGame}
         setStartGame={setStartGame}
@@ -44,6 +44,7 @@ const PlayerGame = () => {
         setPlayerTwoDetails={setPlayerTwoDetails}
         playerOneSelectedMark={playerOneSelectedMark ? playerOneSelectedMark : 'x'}
       />
+      <GameBoard />
     </>
   );
 };
