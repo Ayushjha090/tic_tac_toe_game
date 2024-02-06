@@ -7,12 +7,8 @@ import { toast } from 'react-hot-toast';
 import { PlayerDetails } from '@/types/PlayerType';
 import StartGameDialog from '@/components/vsPlayer/StartGameDialog';
 import GameBoard from '@/components/UI/GameBoard';
-
-const GAME_BOARD = [
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', ''],
-];
+import { GAME_BOARD, toastDurtation, toastDirection } from '@/utils/constants';
+import { checkWin } from '@/utils/helper';
 
 const PlayerGame = () => {
   const searchParams = useSearchParams();
@@ -40,23 +36,41 @@ const PlayerGame = () => {
     playerName: '',
     nameError: '',
   });
-  const [gameState, setGameState] = useState<{ turn: string; gameBoardState: string[][] }>({
+  const [gameState, setGameState] = useState<{
+    turn: string;
+    gameBoardState: string[][];
+    gameStatus: string;
+  }>({
     turn: 'x',
     gameBoardState: GAME_BOARD,
+    gameStatus: 'ongoing',
   });
 
   const handlePlayerMove = (rowIndex: number, colIndex: number) => {
-    if (gameState.gameBoardState[rowIndex][colIndex] !== '') {
-      toast.error('Invalid Move', { position: 'top-center', duration: 1000 });
+    if (gameState.gameBoardState[rowIndex][colIndex] !== '' || gameState.gameStatus !== 'ongoing') {
+      toast.error('Invalid Move', { position: toastDirection, duration: toastDurtation });
       return;
     }
-    setGameState((prevGameState: { turn: string; gameBoardState: string[][] }) => {
-      const newGameBoard = prevGameState.gameBoardState;
-      newGameBoard[rowIndex][colIndex] = prevGameState.turn;
-      const newTurn = prevGameState.turn.toLowerCase() === 'x' ? 'O' : 'X';
 
-      return { turn: newTurn, gameBoardState: newGameBoard };
-    });
+    const newGameBoard = [...gameState.gameBoardState];
+    newGameBoard[rowIndex][colIndex] = gameState.turn.toUpperCase();
+    const newTurn = gameState.turn.toLowerCase() === 'x' ? 'o' : 'x';
+
+    if (checkWin(rowIndex, colIndex, gameState.turn.toUpperCase(), newGameBoard)) {
+      setGameState((prevGameState) => ({
+        ...prevGameState,
+        gameBoardState: newGameBoard,
+        gameStatus: 'won',
+      }));
+
+      return;
+    }
+
+    setGameState((prevGameState) => ({
+      ...prevGameState,
+      turn: newTurn,
+      gameBoardState: newGameBoard,
+    }));
   };
 
   return (
