@@ -3,12 +3,6 @@ import React from 'react';
 
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-const gameBoard = [
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', ''],
-];
-
 const ScoreTiles = ({
   title,
   score,
@@ -34,7 +28,15 @@ const ScoreTiles = ({
   );
 };
 
-const GameBoard = () => {
+const GameBoard = ({
+  currentTurn,
+  gameBoard,
+  onPlayerMove,
+}: {
+  currentTurn: string;
+  gameBoard: string[][];
+  onPlayerMove: (rowIndex: number, colIndex: number) => void;
+}) => {
   return (
     <>
       <header className='w-screen md:w-8/12 lg:w-5/12 2xl:w-4/12 p-2 mx-auto flex flex-row justify-around items-center'>
@@ -46,7 +48,7 @@ const GameBoard = () => {
           id='turn-notifier-container'
           className='bg-primary-color-light p-2 px-5 -ml-6 rounded-md flex items-center shadow-md shadow-background-color'
         >
-          <h1 className='text-2xl font-black mr-2'>X</h1>
+          <h1 className='text-2xl font-black mr-2'>{currentTurn.toUpperCase()}</h1>
           <p className='text-base font-black align-baseline'>TURN</p>
         </div>
         <div
@@ -62,11 +64,12 @@ const GameBoard = () => {
             return (
               <div
                 key={`${rowIndex}${colIndex}`}
-                className={`bg-primary-color-light w-3/12 lg:w-1/4 2xl:w-3/12 h-28 p-5 m-1 lg:m-2 rounded-md text-center text-6xl font-black flex justify-center items-center shadow-md shadow-background-color ${
+                className={`bg-primary-color-light w-3/12 lg:w-1/4 2xl:w-3/12 h-28 p-5 m-1 lg:m-2 rounded-md text-center text-6xl font-black flex justify-center items-center shadow-md shadow-background-color cursor-pointer ${
                   col.toLowerCase() === 'x'
                     ? 'text-primary-color-main'
                     : 'text-secondary-color-main'
                 }`}
+                onClick={(event) => onPlayerMove(rowIndex, colIndex)}
               >
                 {col.toUpperCase()}
               </div>

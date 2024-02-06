@@ -2,23 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
+import { toast } from 'react-hot-toast';
+
 import { PlayerDetails } from '@/types/PlayerType';
 import StartGameDialog from '@/components/vsPlayer/StartGameDialog';
 import GameBoard from '@/components/UI/GameBoard';
 
-const PlayerGame = () => {
-  const [startGame, setStartGame] = useState<boolean>(true);
-  const [playerOneDetails, setPlayerOneDetails] = useState<PlayerDetails>({
-    playerMark: '',
-    playerName: '',
-    nameError: '',
-  });
-  const [playerTwoDetails, setPlayerTwoDetails] = useState<PlayerDetails>({
-    playerMark: '',
-    playerName: '',
-    nameError: '',
-  });
+const GAME_BOARD = [
+  ['', '', ''],
+  ['', '', ''],
+  ['', '', ''],
+];
 
+const PlayerGame = () => {
   const searchParams = useSearchParams();
   const playerOneSelectedMark = searchParams.get('selectedMark');
 
@@ -33,6 +29,36 @@ const PlayerGame = () => {
     }
   }, []);
 
+  const [startGame, setStartGame] = useState<boolean>(true);
+  const [playerOneDetails, setPlayerOneDetails] = useState<PlayerDetails>({
+    playerMark: '',
+    playerName: '',
+    nameError: '',
+  });
+  const [playerTwoDetails, setPlayerTwoDetails] = useState<PlayerDetails>({
+    playerMark: '',
+    playerName: '',
+    nameError: '',
+  });
+  const [gameState, setGameState] = useState<{ turn: string; gameBoardState: string[][] }>({
+    turn: 'x',
+    gameBoardState: GAME_BOARD,
+  });
+
+  const handlePlayerMove = (rowIndex: number, colIndex: number) => {
+    if (gameState.gameBoardState[rowIndex][colIndex] !== '') {
+      toast.error('Invalid Move', { position: 'top-center', duration: 1000 });
+      return;
+    }
+    setGameState((prevGameState: { turn: string; gameBoardState: string[][] }) => {
+      const newGameBoard = prevGameState.gameBoardState;
+      newGameBoard[rowIndex][colIndex] = prevGameState.turn;
+      const newTurn = prevGameState.turn.toLowerCase() === 'x' ? 'O' : 'X';
+
+      return { turn: newTurn, gameBoardState: newGameBoard };
+    });
+  };
+
   return (
     <>
       <StartGameDialog
@@ -44,7 +70,11 @@ const PlayerGame = () => {
         setPlayerTwoDetails={setPlayerTwoDetails}
         playerOneSelectedMark={playerOneSelectedMark ? playerOneSelectedMark : 'x'}
       />
-      <GameBoard />
+      <GameBoard
+        currentTurn={gameState.turn}
+        gameBoard={gameState.gameBoardState}
+        onPlayerMove={handlePlayerMove}
+      />
     </>
   );
 };
